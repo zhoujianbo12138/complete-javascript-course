@@ -12,14 +12,31 @@ const current0El = document.getElementById('current--0');
 const current1El = document.getElementById('current--1');
 
 //Starting conditions
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add('hidden');
+let scores;
+let currentScore;
+let activePlayer;
+let playing;
 
-const scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+const init = function () {
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+  diceEl.classList.add('hidden');
+
+  player0El.classList.remove('player--winner');
+  player0El.classList.add('player--active');
+  player1El.classList.remove('player--winner');
+  player1El.classList.remove('player--active');
+};
+
+//initial
+init();
 
 //Switch function
 const switchPlayer = function () {
@@ -79,26 +96,4 @@ btnHold.addEventListener('click', function () {
   }
 });
 
-btnNew.addEventListener('click', function () {
-  if (player0El.classList.contains('player--winner'))
-    player0El.classList.remove('player--winner');
-  if (!player0El.classList.contains('player--active'))
-    player0El.classList.add('player--active');
-
-  if (player1El.classList.contains('player--winner'))
-    player1El.classList.remove('player--winner');
-  if (player1El.classList.contains('player--active'))
-    player1El.classList.remove('player--active');
-
-  playing = true;
-  activePlayer = 0;
-
-  score0El.textContent = 0;
-  score1El.textContent = 0;
-  current0El.textContent = 0;
-  current1El.textContent = 0;
-  diceEl.classList.add('hidden');
-
-  scores = [0, 0];
-  currentScore = 0;
-});
+btnNew.addEventListener('click', init);
